@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Flawless Glow</title>
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body class="bg-pink-100 text-gray-800">
+    <div id="loginPage" class="flex items-center justify-center h-screen">
+        <div class="bg-white p-10 rounded-lg shadow-lg text-center">
+            <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/INtwlMbr96eotB0qc1jD/pub/mHbx418bBTG8fIFoa8UA.png" alt="Flawless Glow Logo" class="mx-auto mb-4 w-60 h-60 rounded-full shadow-md">
+            <h1 class="text-3xl font-bold mb-6 text-purple-600">Welcome to Flawless Glow</h1>
+            <p class="mb-6 text-gray-600">เลือกบทบาทของคุณเพื่อเข้าสู่ระบบ:</p>
+            <div class="space-y-4">
+                <button onclick="loginAs('employee')" class="bg-purple-400 text-white px-6 py-3 rounded hover:bg-purple-500 w-full">เข้าสู่ระบบในฐานะพนักงาน</button>
+                <button onclick="loginAs('customer')" class="bg-blue-400 text-white px-6 py-3 rounded hover:bg-blue-500 w-full">เข้าสู่ระบบในฐานะลูกค้า</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="mainApp" class="hidden">
+        <header class="bg-purple-500 text-white p-6 shadow-lg flex justify-between items-center">
+            <h1 class="text-3xl font-extrabold">Shop Flawless Glow</h1>
+            <button onclick="goBackToLogin()" class="bg-red-400 text-white px-4 py-2 rounded hover:bg-red-500">กลับไปหน้าล็อกอิน</button>
+        </header>
+
+        <main class="container mx-auto mt-10 p-6">
+            <section class="mb-10" id="addProductSection">
+                <h2 class="text-2xl font-bold mb-6 text-purple-600">เพิ่มสินค้าใหม่</h2>
+                <form id="addItemForm" class="grid grid-cols-1 md:grid-cols-5 gap-4 bg-purple-100 p-6 rounded-lg shadow-md">
+                    <input type="text" id="itemName" placeholder="ชื่อสินค้า" class="p-3 bg-purple-50 text-gray-700 rounded">
+                    <input type="number" id="itemQuantity" placeholder="จำนวน" class="p-3 bg-purple-50 text-gray-700 rounded">
+                    <input type="number" id="itemPrice" placeholder="ราคา" class="p-3 bg-purple-50 text-gray-700 rounded">
+                    <input type="file" id="itemImage" accept="image/*" class="p-3 bg-purple-50 text-gray-700 rounded">
+                    <button type="submit" class="bg-purple-400 text-white p-3 rounded hover:bg-purple-500">เพิ่มสินค้า</button>
+                </form>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold mb-6 text-purple-600">รายการสินค้า</h2>
+                <div id="stockCards" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+            </section>
+        </main>
+
+        <footer class="bg-purple-500 text-white p-4 text-center mt-10 shadow-lg">
+            <p class="text-sm">&copy; 2025 Shop Flawless Glow. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

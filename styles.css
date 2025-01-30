@@ -1,0 +1,9 @@
+body {
+    font-family: 'Inter', 'Prompt', sans-serif;
+}
+h1, h2, h3 {
+    font-family: 'Prompt', sans-serif;
+}
+.hidden {
+    display: none;
+}
