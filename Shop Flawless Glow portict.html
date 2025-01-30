@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Flawless Glow</title>
+
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Prompt:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', 'Prompt', sans-serif;
+        }
+        h1, h2, h3 {
+            font-family: 'Prompt', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-pink-100 text-gray-800">
+    <!-- Login Selection Page -->
+    <div id="loginPage" class="flex items-center justify-center h-screen">
+        <div class="bg-white p-10 rounded-lg shadow-lg text-center">
+            <!-- Logo -->
+            <img src="https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/INtwlMbr96eotB0qc1jD/pub/mHbx418bBTG8fIFoa8UA.png" alt="Flawless Glow Logo" class="mx-auto mb-4 w-60 h-60 rounded-full shadow-md">
+            <h1 class="text-3xl font-bold mb-6 text-purple-600">Welcome to Flawless Glow</h1>
+            <p class="mb-6 text-gray-600">เลือกบทบาทของคุณเพื่อเข้าสู่ระบบ:</p>
+            <div class="space-y-4">
+                <button onclick="loginAs('employee')" class="bg-purple-400 text-white px-6 py-3 rounded hover:bg-purple-500 w-full">เข้าสู่ระบบในฐานะพนักงาน (เฉพาะเจ้าหน้าที่พนักงาน)</button>
+                <button onclick="loginAs('customer')" class="bg-blue-400 text-white px-6 py-3 rounded hover:bg-blue-500 w-full">เข้าสู่ระบบในฐานะลูกค้า (รับชมสินค้า)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="mainApp" class="hidden">
+        <header class="bg-purple-500 text-white p-6 shadow-lg flex justify-between items-center">
+            <h1 class="text-3xl font-extrabold">Shop Flawless Glow</h1>
+            <button onclick="goBackToLogin()" class="bg-red-400 text-white px-4 py-2 rounded hover:bg-red-500">กลับไปหน้าล็อกอิน</button>
+        </header>
+
+        <main class="container mx-auto mt-10 p-6">
+            <section class="mb-10" id="addProductSection">
+                <h2 class="text-2xl font-bold mb-6 text-purple-600">เพิ่มสินค้าใหม่</h2>
+                <form id="addItemForm" class="grid grid-cols-1 md:grid-cols-5 gap-4 bg-purple-100 p-6 rounded-lg shadow-md">
+                    <input type="text" id="itemName" placeholder="ชื่อสินค้า" class="p-3 bg-purple-50 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-400">
+                    <input type="number" id="itemQuantity" placeholder="จำนวน" class="p-3 bg-purple-50 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-400">
+                    <input type="number" id="itemPrice" placeholder="ราคา" class="p-3 bg-purple-50 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-400">
+                    <input type="file" id="itemImage" accept="image/*" class="p-3 bg-purple-50 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-400">
+                    <button type="submit" class="bg-purple-400 text-white p-3 rounded hover:bg-purple-500">เพิ่มสินค้า</button>
+                </form>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold mb-6 text-purple-600">รายการสินค้าในร้าน Flawless Glow</h2>
+                <div id="stockCards" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Cards will be dynamically added here -->
+                </div>
+            </section>
+        </main>
+
+        <footer class="bg-purple-500 text-white p-4 text-center mt-10 shadow-lg">
+            <p class="text-sm">&copy; 2025 Shop Flawless Glow. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        const loginPage = document.getElementById('loginPage');
+        const mainApp = document.getElementById('mainApp');
+        const addProductSection = document.getElementById('addProductSection');
+        const addItemForm = document.getElementById('addItemForm');
+        const stockCards = document.getElementById('stockCards');
+
+        function loginAs(role) {
+            if (role === 'employee') {
+                const username = prompt('Enter Employee Username:');
+                const password = prompt('Enter Employee Password:');
+
+                if (username === 'UTD_ict' && password === 'ict@112') {
+                    alert('Login successful!');
+                    loginPage.classList.add('hidden');
+                    mainApp.classList.remove('hidden');
+                    addProductSection.style.display = 'block';
+                    document.querySelectorAll('.edit-button').forEach(btn => btn.style.display = 'block');
+                } else {
+                    alert('Invalid credentials. Please try again.');
+                }
+            } else if (role === 'customer') {
+                alert('Welcome, Customer!');
+                loginPage.classList.add('hidden');
+                mainApp.classList.remove('hidden');
+                addProductSection.style.display = 'none';
+                document.querySelectorAll('.edit-button').forEach(btn => btn.style.display = 'none');
+            }
+        }
+
+        function goBackToLogin() {
+            mainApp.classList.add('hidden');
+            loginPage.classList.remove('hidden');
+        }
+
+        addItemForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const itemName = document.getElementById('itemName').value.trim();
+            const itemQuantity = document.getElementById('itemQuantity').value.trim();
+            const itemPrice = document.getElementById('itemPrice').value.trim();
+            const itemImage = document.getElementById('itemImage').files[0];
+            const dateAdded = new Date().toLocaleString();
+
+            if (itemName && itemQuantity && itemPrice && itemImage) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const card = document.createElement('div');
+                    card.className = "bg-purple-100 text-gray-800 p-4 rounded-lg shadow-md";
+
+                    card.innerHTML = `
+                        <img src="${event.target.result}" alt="${itemName}" class="w-full h-40 object-cover rounded mb-4">
+                        <h3 class="text-lg font-bold mb-2">${itemName}</h3>
+                        <p class="mb-2">จำนวน: <span class="font-semibold quantity">${itemQuantity}</span></p>
+                        <p class="mb-2">ราคา: <span class="font-semibold">฿${itemPrice}</span></p>
+                        <p class="mb-4 text-sm text-gray-600">เพิ่มเมื่อ: ${dateAdded}</p>
+                        <button onclick="editItem(this)" class="edit-button bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-500">แก้ไข</button>
+                    `;
+
+                    stockCards.appendChild(card);
+                };
+
+                reader.readAsDataURL(itemImage);
+
+                addItemForm.reset();
+            } else {
+                alert('กรุณากรอกข้อมูลให้ครบถ้วนและแนบรูปภาพ.');
+            }
+        });
+
+        function editItem(button) {
+            const card = button.parentElement;
+            const quantityElement = card.querySelector('.quantity');
+
+            const newQuantity = prompt('แก้ไขจำนวนสินค้า:', quantityElement.textContent);
+
+            if (newQuantity && !isNaN(newQuantity) && newQuantity > 0) {
+                quantityElement.textContent = newQuantity;
+                alert('จำนวนสินค้าถูกแก้ไขเรียบร้อยแล้ว!');
+            } else {
+                alert('กรุณากรอกจำนวนที่ถูกต้อง.');
+            }
+        }
+    </script>
+</body>
+</html>
